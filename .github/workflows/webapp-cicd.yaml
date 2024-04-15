@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for React Web App
+name: CI/CD Pipeline for Node App
 
 on:
   push:
@@ -26,6 +26,7 @@ jobs:
         uses: sonarsource/sonarcloud-github-action@master
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         with:
           args: >
             -Dsonar.organization=saibhargav2001
