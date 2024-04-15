@@ -7,7 +7,7 @@ on:
 
 jobs:
   SonarCloudScan:
-    name: Analyze Code and Deploy
+    name: SonarCloudScan
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
           projectBaseDir: .
           args: >
             -Dsonar.organization=my-org
-            -Dsonar.projectKey=sample-webapp
+            # -Dsonar.projectKey=sample-webapp
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
