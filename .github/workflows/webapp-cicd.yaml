@@ -25,7 +25,6 @@ jobs:
         run: npm install
 
 
-
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
@@ -34,4 +33,4 @@ jobs:
         with:
           args: >
             -Dsonar.organization=saibhargav2001
-            -Dsonar.projectKey=SampleWebapp
+            -Dsonar.projectKey=saibhargav2001
