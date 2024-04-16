@@ -19,12 +19,12 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
-        run: npm test -- --passWithNoTests
+        run: npm test
 
-      - name: Run linters if lint script exists
+      - name: Run linters
         run: |
           if npm run -s | grep -q "^lint$"; then
             npm run lint
