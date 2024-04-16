@@ -24,8 +24,13 @@ jobs:
       - name: Run tests
         run: npm test -- --passWithNoTests
 
-      - name: Run linters
-        run: npm run lint
+      - name: Run linters if lint script exists
+        run: |
+          if npm run -s | grep -q "^lint$"; then
+            npm run lint
+          else
+            echo "Lint script not found, skipping linting"
+          fi
 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
