@@ -1,0 +1,41 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests and linters
+        run: |
+          npm test
+          npm run lint
+
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@v1
+        with:
+          organization: "Saibhargav2001"
+          token: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Check SonarCloud Quality Gate status
+        run: |
+          STATUS=$(curl -s "https://sonarcloud.io/api/qualitygates/project_status?projectKey=your-project-key" | jq -r '.projectStatus.status')
+          if [ $STATUS != "OK" ]; then
+            echo "SonarCloud Quality Gate check failed"
+            exit 1
+          fi
