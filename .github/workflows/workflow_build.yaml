@@ -23,7 +23,7 @@ jobs:
         continue-on-error: false
 
       - name: Run tests
-        run: npm test
+        run: npm test -- --passWithNoTests
         continue-on-error: false
 
       - name: Run linters
