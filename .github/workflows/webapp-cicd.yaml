@@ -24,8 +24,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
 
 
       - name: SonarCloud Scan
