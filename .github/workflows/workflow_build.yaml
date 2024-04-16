@@ -15,19 +15,22 @@ jobs:
         
       - name: Check Node.js files
         run: |
+          errors=0
           if [ ! -f package.json ]; then
             echo "Error: package.json file not found"
-            exit 1
+            errors=$((errors+1))
           fi
           if [ ! -f .eslintrc.js ]; then
             echo "Error: .eslintrc.js file not found"
-            exit 1
+            errors=$((errors+1))
           fi
           if [ ! -d src ]; then
             echo "Error: src directory not found"
+            errors=$((errors+1))
+          fi
+          if [ $errors -gt 0 ]; then
             exit 1
           fi
-          # Add more checks if needed
           
       - name: Set up Node.js
         uses: actions/setup-node@v3
