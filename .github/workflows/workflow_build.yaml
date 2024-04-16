@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         
       - name: Check Node.js files
         run: |
@@ -29,11 +29,12 @@ jobs:
             errors=$((errors+1))
           fi
           if [ $errors -gt 0 ]; then
+            echo "Errors found, failing workflow"
             exit 1
           fi
           
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '14'
 
