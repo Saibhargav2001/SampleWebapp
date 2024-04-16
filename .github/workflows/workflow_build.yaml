@@ -5,31 +5,26 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '14'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
+      - name: Run tests and linters
         run: |
-          npm install
-          npm run test
-        env:
-          NODE_ENV: test
-
+          npm test || { echo "Tests failed"; exit 1; }
+          npm run lint || { echo "Linting failed"; exit 1; }
 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
