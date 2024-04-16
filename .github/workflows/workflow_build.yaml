@@ -12,7 +12,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+        
+      - name: Check Node.js files
+        run: |
+          if [ ! -f package.json ]; then
+            echo "Error: package.json file not found"
+            exit 1
+          fi
+          if [ ! -f .eslintrc.js ]; then
+            echo "Error: .eslintrc.js file not found"
+            exit 1
+          fi
+          if [ ! -d src ]; then
+            echo "Error: src directory not found"
+            exit 1
+          fi
+          # Add more checks if needed
+          
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
