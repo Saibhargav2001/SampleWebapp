@@ -11,20 +11,28 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests and linters
+      - name: Check if tests exist
         run: |
-          npm test || { echo "Tests failed"; exit 1; }
-          npm run lint || { echo "Linting failed"; exit 1; }
+          if ! find ./src -name '*.test.js' | grep -q .; then
+            echo "No test files found, skipping tests"
+            exit 0
+          fi
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run linters
+        run: npm run lint
 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
