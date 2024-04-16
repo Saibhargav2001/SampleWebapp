@@ -33,4 +33,4 @@ jobs:
         with:
           args: >
             -Dsonar.organization=saibhargav2001
-            -Dsonar.projectKey=saibhargav2001
+            -Dsonar.projectKey=SampleWebapp
