@@ -34,6 +34,10 @@ jobs:
 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
+        env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         with:
-          organization: "Saibhargav2001"
-          token: ${{ secrets.SONAR_TOKEN }}
+          args: >
+            -Dsonar.organization=saibhargav2001
+            -Dsonar.projectKey=Saibhargav2001_SampleWebapp
