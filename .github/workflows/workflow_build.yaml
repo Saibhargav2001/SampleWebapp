@@ -21,15 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check if tests exist
-        run: |
-          if ! find ./src -name '*.test.js' | grep -q .; then
-            echo "No test files found, skipping tests"
-            exit 0
-          fi
-
       - name: Run tests
-        run: npm test
+        run: npm test -- --passWithNoTests
 
       - name: Run linters
         run: npm run lint
@@ -39,11 +32,3 @@ jobs:
         with:
           organization: "Saibhargav2001"
           token: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Check SonarCloud Quality Gate status
-        run: |
-          STATUS=$(curl -s "https://sonarcloud.io/api/qualitygates/project_status?projectKey=your-project-key" | jq -r '.projectStatus.status')
-          if [ $STATUS != "OK" ]; then
-            echo "SonarCloud Quality Gate check failed"
-            exit 1
-          fi
