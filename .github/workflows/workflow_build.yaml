@@ -19,10 +19,12 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
+        continue-on-error: false
 
       - name: Run tests
         run: npm test
+        continue-on-error: false
 
       - name: Run linters
         run: |
@@ -31,6 +33,7 @@ jobs:
           else
             echo "Lint script not found, skipping linting"
           fi
+        continue-on-error: false
 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
